@@ -97,6 +97,13 @@ DATA["CONFIG_DAY_OF_WEEK"] = {
         "help": "Shows day of week on the date module",
 }
 
+DATA["DOW_FR"] = {
+        "name": "Date: Day of Week, french variant",
+        "depends": [],
+        "default": True,
+        "help": "Changes the day text of the day of week in french",
+}
+
 DATA["CONFIG_TEST"] = {
         "name": "Test Mode (614 bytes)",
         "depends": [],

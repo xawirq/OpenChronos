@@ -289,7 +289,11 @@ void sx_date(line_t line)
 void display_date(line_t line, update_t update)
 {
 #ifdef CONFIG_DAY_OF_WEEK
-	static const u8 weekDayStr[7][3] = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
+	#ifdef DOW_FR
+		static const u8 weekDayStr[7][3] = {"DIM","LUN","MAR","MER","JEU","VEN","SAM"};
+	#else
+		static const u8 weekDayStr[7][3] = {"SUN","MON","TUE","WED","THU","FRI","SAT"};
+	#endif
 	static const u8 weekDaySkew[12]  = {0, 3, 3, 6, 1, 4, 6, 2, 5, 0, 3, 5};
 #endif
 	u8 * str;
