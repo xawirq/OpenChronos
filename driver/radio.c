@@ -170,8 +170,14 @@ void close_radio(void)
 // *************************************************************************************************
 //pfs 
 #ifdef __GNUC__
-#include <signal.h>
-interrupt (CC1101_VECTOR) radio_ISR(void)
+  #ifdef MSPGCC4 // This part is not compatible with MSPGCC
+    #include <signal.h>
+    interrupt (CC1101_VECTOR) radio_ISR(void)
+  #else // MSPGCC4
+    #include <msp430.h>
+    __attribute__((interrupt(CC1101_VECTOR)))
+    void radio_ISR(void)
+  #endif // MSPGCC4 
 #else
 #pragma vector=CC1101_VECTOR
 __interrupt void radio_ISR(void)

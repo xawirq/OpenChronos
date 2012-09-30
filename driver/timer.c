@@ -317,8 +317,14 @@ void Timer0_A4_Delay(u16 ticks)
 // *************************************************************************************************
 //pfs 
 #ifdef __GNUC__  
-#include <signal.h>
-interrupt (TIMER0_A0_VECTOR) TIMER0_A0_ISR(void)
+  #ifdef MSPGCC4 // This part is not compatible with MSPGCC
+    #include <signal.h>
+    interrupt (TIMER0_A0_VECTOR) TIMER0_A0_ISR(void)
+  #else // MSPGCC4
+    #include <msp430.h>
+    __attribute__((interrupt(TIMER0_A0_VECTOR)))
+    void TIMER0_A0_ISR(void)
+  #endif // MSPGCC4 
 #else
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void TIMER0_A0_ISR(void)
@@ -648,8 +654,14 @@ __interrupt void TIMER0_A0_ISR(void)
 // *************************************************************************************************
 //pfs 
 #ifdef __GNUC__
-#include <signal.h>
-interrupt (TIMER0_A1_VECTOR) TIMER0_A1_5_ISR(void)
+  #ifdef MSPGCC4 // This part is not compatible with MSPGCC
+    #include <signal.h>
+    interrupt (TIMER0_A1_VECTOR) TIMER0_A1_5_ISR(void)
+  #else // MSPGCC4
+    #include <msp430.h>
+    __attribute__((interrupt(TIMER0_A1_VECTOR)))
+    void TIMER0_A1_5_ISR(void)
+  #endif // MSPGCC4 
 #else
 #pragma vector = TIMER0_A1_VECTOR
 __interrupt void TIMER0_A1_5_ISR(void)

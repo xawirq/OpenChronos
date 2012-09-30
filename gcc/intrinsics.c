@@ -12,7 +12,7 @@
  */
 
 //__delay_cycles  used in main.c, rf1a.c, bsp_board.c
-void __delay_cycles(unsigned long __cycles)
+void __delay_cycles(uint32_t __cycles)
 {
 	// divide by eight
 	asm volatile("clrc");

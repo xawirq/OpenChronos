@@ -1,7 +1,12 @@
 #ifndef __INTRINSICS_H
 #define __INTRINSICS_H
 
-#include <signal.h>
+#ifdef MSPGCC4 // This part is not compatible with MSPGCC
+  #include <signal.h>
+#else // MSPGCC4
+  #include <msp430.h>
+  #include <stdint.h>
+#endif // MSPGCC4 
 
 typedef unsigned short istate_t;
 
@@ -16,7 +21,7 @@ extern "C"
                                              unsigned short __bound);
 
   /* Insert a delay with a specific number of cycles. */
-  void __delay_cycles(unsigned long __cycles);
+  void __delay_cycles(uint32_t __cycles);
 
 #ifdef __cplusplus
 }

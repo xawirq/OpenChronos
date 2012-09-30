@@ -238,7 +238,9 @@ void init_application(void)
     // changed is n x 32 x 32 x f_MCLK / f_FLL_reference. See UCS chapter in 5xx
     // UG for optimization.
     // 32 x 32 x 8 MHz / 32,768 Hz = 250000 = MCLK cycles for DCO to settle
-    __delay_cycles(250000);
+	uint8_t i;
+	for (i=0; i<10; i++)
+    __delay_cycles(25000);
   
 	// Loop until XT1 & DCO stabilizes, use do-while to insure that 
 	// body is executed at least once

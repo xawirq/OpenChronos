@@ -129,8 +129,14 @@ void init_buttons(void)
 // *************************************************************************************************
 //pfs 
 #ifdef __GNUC__  
-#include <signal.h>
-interrupt (PORT2_VECTOR) PORT2_ISR(void)
+  #ifdef MSPGCC4 // This part is not compatible with MSPGCC
+    #include <signal.h>
+    interrupt (PORT2_VECTOR) PORT2_ISR(void)
+  #else // MSPGCC4
+    #include <msp430.h>
+    __attribute__((interrupt(PORT2_VECTOR)))
+    void PORT2_ISR(void)
+  #endif // MSPGCC4 
 #else
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT2_ISR(void)

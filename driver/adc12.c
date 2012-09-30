@@ -168,8 +168,14 @@ u16 adc12_single_conversion(u16 ref, u16 sht, u16 channel)
 // *************************************************************************************************
 //pfs wrapped the following to accommodate mspgcc compiler
 #ifdef __GNUC__
-#include <signal.h>
-interrupt (ADC12_VECTOR) ADC12ISR (void)
+  #ifdef MSPGCC4 // This part is not compatible with MSPGCC
+    #include <signal.h>
+    interrupt (ADC12_VECTOR) ADC12ISR (void)
+  #else // MSPGCC4
+    #include <msp430.h>
+    __attribute__((interrupt(ADC12_VECTOR)))
+    void ADC12ISR(void)
+  #endif // MSPGCC4  
 #else
 #pragma vector=ADC12_VECTOR
 __interrupt void ADC12ISR (void)
