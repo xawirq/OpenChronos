@@ -106,11 +106,8 @@
 
 #define __bsp_ISTATE_T__            unsigned short
 #define __bsp_ISR_FUNCTION__(f,v)   interrupt(v) f()
-#if (__CC430F6137__)
-#include <cc430x613x.h>
-#else
 #include <msp430.h>
-#endif
+#include <stdint.h>
 
 
 /* ------------------ Unrecognized Compiler ------------------ */
