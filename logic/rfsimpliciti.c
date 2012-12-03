@@ -716,13 +716,18 @@ void simpliciti_sync_decode_ap_cmd_callback(void)
                                         #endif
 										// Set temperature and temperature offset
 										t1 = (s16)((simpliciti_data[10]<<8) + simpliciti_data[11]);
-										offset = t1 - (sTemp.degrees - sTemp.offset);
-										sTemp.offset  = offset;	
-										sTemp.degrees = t1;									
+										if (t1 != 0xFFFF) {
+											offset = t1 - (sTemp.degrees - sTemp.offset);
+											sTemp.offset  = offset;	
+											sTemp.degrees = t1;
+										}									
 										// Set altitude
 #ifdef CONFIG_ALTITUDE
-										sAlt.altitude = (s16)((simpliciti_data[12]<<8) + simpliciti_data[13]);
-										update_pressure_table(sAlt.altitude, sAlt.pressure, sAlt.temperature);
+										uint16_t alt = ((simpliciti_data[12]<<8) + simpliciti_data[13]);
+										if (alt != 0xFFFF) {
+											sAlt.altitude = alt;
+											update_pressure_table(sAlt.altitude, sAlt.pressure, sAlt.temperature);
+										}
 #endif
 #ifdef CONFIG_SIDEREAL
 										if(sSidereal_time.sync>0)

@@ -118,6 +118,9 @@ config:
 install: build/eZChronos.txt
 	contrib/ChronosTool.py rfbsl $<
 
+synctime:
+	contrib/ChronosTool.py sync 6553.5 65535
+
 help:
 	@echo "Valid targets are"
 	@echo "    main"

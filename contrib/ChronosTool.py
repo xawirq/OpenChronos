@@ -418,8 +418,8 @@ class CBM:
         payload[0x07] = dt.day
         payload[0x08] = 0x06
         payload[0x09] = 0x1e
-        payload[0x0a] = (celsius*10)>>8
-        payload[0x0b] = (celsius*10)&0xff
+        payload[0x0a] = int(celsius*10)>>8
+        payload[0x0b] = int(celsius*10)&0xff
         payload[0x0c] = meters>>8
         payload[0x0d] = meters&0xff
 
@@ -716,8 +716,8 @@ elif command == "sync":
     bm = CBM( opt.device )
     temp = 0
     alt = 0
-    if len(args) >= 2 and args[1].isdigit():
-        temp = int(args[1])
+    if len(args) >= 2 and args[1]:
+        temp = float(args[1])
     if len(args) == 3  and args[2].isdigit():
         alt = int(args[2])
     bm.spl_sync(celsius=temp, meters=alt)
