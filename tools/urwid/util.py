@@ -112,6 +112,7 @@ def apply_target_encoding( s ):
     """
     Return (encoded byte string, character set rle).
     """
+    s = s.encode('utf-8')
     if _use_dec_special and type(s) == type(u""):
         # first convert drawing characters
         try:
