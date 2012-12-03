@@ -115,12 +115,16 @@ config:
 	$(PYTHON) tools/config.py
 	git update-index --assume-unchanged config.h 2> /dev/null || true
 
+install: build/eZChronos.txt
+	contrib/ChronosTool.py rfbsl $<
+
 help:
 	@echo "Valid targets are"
 	@echo "    main"
 	@echo "    debug"
 	@echo "    clean"
 	@echo "    debug_asm"
+	@echo "    install"
 #rm *.o $(BUILD_DIR)*
 
 
