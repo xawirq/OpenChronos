@@ -56,12 +56,13 @@ extern void display_alarm(u8 line, u8 update);
 // Defines section
 
 // Alarm states
-#define ALARM_DISABLED 		(0u)
-#define ALARM_ENABLED       (1u)
-#define ALARM_ON            (2u)
+#define ALARM_DISABLED 			(0u)
+#define ALARM_ENABLED       	(1u)
+#define ALARM_ON            	(2u)
+#define ALARM_DISABLED_NIGHT	(3u)
 
 // Keep alarm for 10 on-off cycles
-#define ALARM_ON_DURATION	(10u)
+#define ALARM_ON_DURATION		(15u)
 
 
 // *************************************************************************************************

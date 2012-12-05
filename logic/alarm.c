@@ -86,7 +86,7 @@ void reset_alarm(void)
 	// Alarm is initially off	
 	sAlarm.duration = ALARM_ON_DURATION;
 	sAlarm.state 	= ALARM_DISABLED;
-	sAlarm.hourly 	= ALARM_DISABLED;
+	sAlarm.hourly 	= ALARM_DISABLED_NIGHT;
 }
 
 
@@ -141,33 +141,46 @@ void sx_alarm(u8 line)
 	// UP: Cycle through alarm modes
 	if(button.flag.up)
 	{
-		// Toggle alarm state
-		if (sAlarm.state == ALARM_DISABLED) {
-			if (sAlarm.hourly == ALARM_DISABLED) {
+		// Toggle alarm state machine
+		switch ((sAlarm.state << 2) + sAlarm.hourly) {
+			case (ALARM_DISABLED << 2) + ALARM_DISABLED:
 				sAlarm.hourly = ALARM_ENABLED;
 				// Show "offh" message 
 				message.flag.prepare = 1;
 				message.flag.type_alarm_off_chime_on = 1;
-			} else if (sAlarm.hourly == ALARM_ENABLED) {
+				break;
+			case (ALARM_DISABLED << 2) + ALARM_ENABLED:
+				sAlarm.hourly = ALARM_DISABLED_NIGHT;
+				// Show " on" message 
+				message.flag.prepare = 1;
+				message.flag.type_alarm_off_chime_day = 1;
+				break;
+			case (ALARM_DISABLED << 2) + ALARM_DISABLED_NIGHT:
 				sAlarm.state = ALARM_ENABLED;
 				sAlarm.hourly = ALARM_DISABLED;
 				// Show " on" message 
 				message.flag.prepare = 1;
 				message.flag.type_alarm_on_chime_off = 1;
-			}
-		} else if (sAlarm.state == ALARM_ENABLED) {
-			if (sAlarm.hourly == ALARM_DISABLED) {
+				break;
+			case (ALARM_ENABLED << 2) + ALARM_DISABLED:
 				sAlarm.hourly = ALARM_ENABLED;
 				// Show " onh" message 
 				message.flag.prepare = 1;
 				message.flag.type_alarm_on_chime_on = 1;
-			} else if (sAlarm.hourly == ALARM_ENABLED) {
+				break;
+			case (ALARM_ENABLED << 2) + ALARM_ENABLED:
+				sAlarm.hourly = ALARM_DISABLED_NIGHT;
+				// Show " off" message 
+				message.flag.prepare = 1;
+				message.flag.type_alarm_on_chime_day = 1;
+				break;
+			case (ALARM_ENABLED << 2) + ALARM_DISABLED_NIGHT:
 				sAlarm.state = ALARM_DISABLED;
 				sAlarm.hourly = ALARM_DISABLED;
 				// Show " off" message 
 				message.flag.prepare = 1;
 				message.flag.type_alarm_off_chime_off = 1;
-			}
+				break;
 		}
 	}
 }

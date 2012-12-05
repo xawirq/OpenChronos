@@ -393,7 +393,8 @@ __interrupt void TIMER0_A0_ISR(void)
 		#ifdef CONFIG_ALARM
 		// If the chime is enabled, we beep here
 		if (sTime.minute == 0) {
-			if (sAlarm.hourly == ALARM_ENABLED) {
+			if (sAlarm.hourly == ALARM_ENABLED || 
+				(sTime.hour > 8 && sTime.hour < 23 && sAlarm.hourly == ALARM_DISABLED_NIGHT)) {
 				request.flag.alarm_buzzer = 1;
 			}
             #if (CONFIG_DST > 0)

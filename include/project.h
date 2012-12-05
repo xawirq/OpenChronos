@@ -150,8 +150,10 @@ typedef union
     u16 type_lobatt						: 1;	// 1 = Show "lobatt" text in Line2
     u16 type_alarm_off_chime_off		: 1;	// 1 = Show " off" text in Line1
     u16 type_alarm_off_chime_on			: 1;	// 1 = Show " offh" text in Line1
+    u16 type_alarm_off_chime_day		: 1;	// 1 = Show "offhn" text in Line1
     u16 type_alarm_on_chime_off			: 1;	// 1 = Show "  on" text in Line1
     u16 type_alarm_on_chime_on			: 1;	// 1 = Show " onh" text in Line1
+    u16 type_alarm_on_chime_day			: 1;	// 1 = Show "onhn" text in Line1
     u16 type_no_beep_on					: 1;	// 1 = Show " beep" text in Line2
     u16 type_no_beep_off				: 1;	// 1 = Show "nobeep" text in Line2
     u16 block_line1						: 1;	// 1 = block Line1 from updating until message erase

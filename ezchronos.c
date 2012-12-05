@@ -690,6 +690,16 @@ void display_update(void)
 			memcpy(string, " ONH", 4);
 			line = LINE1;
 		}
+		else if (message.flag.type_alarm_on_chime_day)
+		{
+			memcpy(string, "ONHD", 4);
+			line = LINE1;
+		}
+		else if (message.flag.type_alarm_off_chime_day)
+		{
+			memcpy(string, "OFHD", 4);
+			line = LINE1;
+		}
 		#endif
         
 		
